@@ -7,10 +7,25 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_01():
-    """
-    Retorne la suma de la segunda columna.
 
-    Rta/
-    214
+    suma = 0
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            suma += int(columns[1])
+    return suma
+    
 
-    """
+print(pregunta_01())
+
+
+
+    
+
+"""
+Retorne la suma de la segunda columna.
+
+Rta/
+214
+
+"""
