@@ -1,17 +1,32 @@
-"""
-Escriba el codigo que ejecute la accion solicitada en cada pregunta. Los
-datos requeridos se encuentran en el archivo data.csv. En este laboratorio
-solo puede utilizar las funciones y librerias basicas de python. No puede
-utilizar pandas, numpy o scipy.
-"""
+
+import csv
 
 
 def pregunta_12():
-    """
-    Genere un diccionario que contengan como clave la columna 1 y como valor
-    la suma de los valores de la columna 5 sobre todo el archivo.
 
-    Rta/
-    {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
+    route = "files/input/data.csv"
+    # diccionario que almacena los registros
+    dict = {}
 
-    """
+    with open(route, 'r', encoding='utf-8') as line:
+
+        lector_csv = csv.reader(line, delimiter='\t')
+
+        for fila in lector_csv:
+            # Se toma la clave y los valuees de cada fila
+            key = fila[0]
+            # Se divide cada fragmento jjj:numero
+            aux = fila[4].split(',')
+            # Se toma solo el numero de cada fragmento
+            values = [int(value.split(':')[1]) for value in aux]
+            # Se suman los valuees
+            suma = sum(values)
+
+            #
+            # Si no esta en el diccionario, se agrega
+            if key not in dict:
+                dict[key] = suma
+            else:
+                dict[key] += suma
+
+    return dict

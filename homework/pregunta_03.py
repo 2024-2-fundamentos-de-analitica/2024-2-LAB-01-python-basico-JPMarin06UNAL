@@ -5,26 +5,41 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+"""
+Retorne la suma de la columna 2 por cada letra de la primera columna como
+una lista de tuplas (letra, suma) ordendas alfabeticamente.
+
+Rta/
+[('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
+
+"""
+
+import csv
 
 def pregunta_03():
-    dict = {}
-    with open("../files/input/data.csv", "r") as file:
-        
-        for line in file:
-            columns = line.strip().split("\t")
-            if columns[0] in dict:
-                dict[columns[0]] += int(columns[1])
-            else:
-                dict[columns[0]] = int(columns[1])
 
-    return sorted(tuple(dict.items()))
+    route = "files/input/data.csv"
+    # diccionario que almacena los registros
+    dict = {}
+
+    with open(route, 'r', encoding='utf-8') as archivo:
+        lector_csv = csv.reader(archivo, delimiter='\t')
+        
+        for fila in lector_csv:
+            # Añade los valores de la columna 2 y los convierte en enteros
+            # Si existe
+            if fila[0] in dict:
+                dict[fila[0]] += int(fila[1])
+            # Si no existe
+            else:
+                dict[fila[0]] = int(fila[1])
+
+    # Se obtienen los objetos del dict, y se ordenan en base a su letra
+    lista = list(dict.items())
+    lista.sort()
+    
+    return lista
+
+print(pregunta_03())
 
     
-    """
-    Retorne la suma de la columna 2 por cada letra de la primera columna como
-    una lista de tuplas (letra, suma) ordendas alfabeticamente.
-
-    Rta/
-    [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
-
-    """
